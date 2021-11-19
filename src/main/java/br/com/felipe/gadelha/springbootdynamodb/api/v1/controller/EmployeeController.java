@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -19,8 +21,13 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Employee>> findAll() {
+        return ResponseEntity.ok(employeeRepository.findAll());
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<Employee> findById(@PathVariable String id) {
         return ResponseEntity.ok(employeeRepository.findById(id));
     }
 
@@ -31,14 +38,14 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public void update(@PathVariable Long id, @RequestBody EmployeeRq employeeRq) {
+    public void update(@PathVariable String id, @RequestBody EmployeeRq employeeRq) {
         var employee = employeeRq.convert();
         employeeRepository.update(id, employee);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable String id) {
         employeeRepository.delete(id);
     }
 

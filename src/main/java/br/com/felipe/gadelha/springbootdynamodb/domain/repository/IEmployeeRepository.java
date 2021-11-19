@@ -1,13 +1,13 @@
 package br.com.felipe.gadelha.springbootdynamodb.domain.repository;
 
 import br.com.felipe.gadelha.springbootdynamodb.domain.entity.Employee;
-import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
-@Repository
 public interface IEmployeeRepository {
-    Employee findById(Long id);
+    List<Employee> findAll();
+    Employee findById(String id);
     Employee save(Employee employee);
-    void delete(Long id);
-    Long update(Long id, Employee employee);
+    void delete(String id);
+    String update(String id, Employee employee);
 }
